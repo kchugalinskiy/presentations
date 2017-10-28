@@ -1,0 +1,148 @@
+\documentclass[mathserif,serif]{beamer}
+\usetheme{metropolis}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\title[Кодогенерация]
+{Кодогенерация}
+\subtitle{The good the bad and the ugly}
+\date
+{}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}
+	\frametitle{Кодогенерация}
+	\begin{itemize}
+		\item{Трансляция}
+		\item{Генерация интерфейсов}
+		\item{Генерация общего состояния}
+		\item{Генерация клиентов}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Трансляция (SequenceL)}
+	\begin{columns}[T]
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+				\begin{itemize}
+					\item{Нет модификации сгенерированного кода}
+					\item{Нет разнесения результатов генерации}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\includegraphics[height=7.5cm]{SequenceL-ToolFlow_After-SL_v4_no-background.jpg}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Трансляция - по факту}
+	\begin{itemize}
+		\item{Превознеможение кросс-компиляции}
+		\item{Зрелый подход к написанию компиляторов}
+		\item{Не для каждой задачи разумные люди пишут свой язык программирования}
+		\item{Можно применять если понимаем что и зачем делаем}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Генерация интерфейсов}
+	\begin{itemize}
+		\item{com: idl <-> \%languagename\%}
+		\item{corba: idl <-> \%languagename\%}
+		\item{javah: Java <-> C++}
+		\item{soap: wsdl <-> \%languagename\%}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Генерация интерфейсов - по факту}
+	\begin{itemize}
+		\item{Правки сгенерированного кода имплементации обработчиков}
+		\item{Сложности в отладке того что сгенерировано}
+		\item{Невозможность быстро исправить ошибку кодогенерации}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Генерация интерфейсов - по факту}
+	\begin{columns}[T]
+		\begin{column}{.7\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          	Струи Коцита леденя до дна.
+
+             Шесть глаз точило слезы, и стекала
+
+             Из трех пастей кровавая слюна.
+			\end{minipage}
+		\end{column}
+		\begin{column}{.4\linewidth}
+			\includegraphics[height=7cm]{devil.jpg}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Генерация общего состояния (репликация состояния)}
+	\begin{itemize}
+		\item{Очень похоже на предыдущий случай}
+		\item{Не генерируется никакая логика кроме логики работы с состоянием}
+		\item{Исключительно логика обработки состояния}
+		\item{Пожалуй самое вменяемое использование кодогенерации}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{goa framework}
+	\begin{itemize}
+		\item{Генерация данных по описанию}
+		\item{Валидация аргументов и методов}
+		\item{Генерация клиентов}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{goa framework - было}
+	\includegraphics[width=\linewidth]{then.png}
+\end{frame}
+
+\begin{frame}
+	\frametitle{goa framework - стало}
+	\includegraphics[width=\linewidth]{now.png}
+\end{frame}
+
+\begin{frame}
+	\frametitle{goa framework - серьезно?}
+	\includegraphics[width=\linewidth]{cage-meme.jpg}
+\end{frame}
+
+\begin{frame}
+	\frametitle{goa framework - продолжаем}
+	\begin{itemize}
+		\item{Ломаются менеджеры зависимостей из-за разных типов}
+		\item{Невозможно использовать общие типы в описании зависимостей}
+		\item{Трудности с багами в самом goa}
+		\item{Костылинг для юнит-тестирования методов}
+		\item{Правим руками сгенеренный код (необязательно)}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Итого}
+	\begin{itemize}
+		\item{Рим вечен}
+		\item{Кодогенерация как правило вредна}
+		\item{Встретил исключение - подтвердил правило}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Вопросы?}
+	\includegraphics[width=\linewidth]{money.jpg}
+\end{frame}
+
+\end{document}
