@@ -2,6 +2,7 @@
 \usetheme{Warsaw}
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
+\usepackage{listings}
 
 \title[DevOps глазами разработчика]
 {DevOps глазами разработчика}
@@ -14,21 +15,16 @@
 
 \begin{frame}
 	\frametitle{Что такое DevOps}
-Смищная картинка про сломанные процессы
+	\includegraphics[width=\linewidth]{dev_ops_juinor.png}
 \end{frame}
 
 \begin{frame}
-	\frametitle{DevOps - не человек}
-Картинка где стена разрушена между опсами и девами
-\end{frame}
-
-\begin{frame}
-	\frametitle{Утилиты для управления инфраструктурой}
+	\frametitle{Управление инфраструктурой}
 	\begin{itemize}
-		\item{bash}
-		\item{ansible}
-		\item{terraform}
-		\item{infrastructure microservices}
+		\item{bash/perl скрипты}
+		\item{Ansible}
+		\item{Terraform}
+		\item{Инфраструктурные сервисы}
 	\end{itemize}
 \end{frame}
 
@@ -64,7 +60,7 @@
 			\begin{minipage}[c][\textheight][c]{\linewidth}
           			Плюсы
 				\begin{itemize}
-					\item{Infrastructure as Code (imperative way)}
+					\item{Infrastructure as Code (Императивный подход)}
 					\item{Простота использования}
 					\item{.retry-файлы}
 				\end{itemize}
@@ -74,12 +70,69 @@
 			\begin{minipage}[c][\textheight][c]{\linewidth}
           			Минусы
 				\begin{itemize}
-					\item{Нет состояния}
+					\item{Нет полноценного состояния}
 					\item{Технологические ограничения автоматизации}
 				\end{itemize}
 			\end{minipage}
 		\end{column}
 	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Terraform}
+	\begin{columns}[T]
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Плюсы
+				\begin{itemize}
+					\item{Infrastructure as Code (декларативный подход)}
+					\item{Полноценное состояние}
+					\item{Совместная разработка}
+					\item{Модульность}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Минусы
+				\begin{itemize}
+					\item{Ограниченные сферы применения}
+					\item{Нельзя писать полноценный активный код}
+					\item{Высокий порог входа}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Инфраструктурные сервисы}
+	\begin{columns}[T]
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Плюсы
+				\begin{itemize}
+					\item{Полноценное состояние, все зависит от нас}
+					\item{Интеграция со всеми мыслимыми библиотеками}
+					\item{Полноценный код, управляющий инфраструктурой}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Минусы
+				\begin{itemize}
+					\item{ОЧЕНЬ Высокий порог входа, нужны разработчики}
+					\item{Шанс изобрести велосипед}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DevOps - не человек}
+	\includegraphics[width=\linewidth]{true-devops.jpg}
 \end{frame}
 
 \end{document}
