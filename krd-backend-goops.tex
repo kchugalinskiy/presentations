@@ -131,8 +131,216 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{DevOps - не человек}
+	\frametitle{DevOps - не человек, DevOps - методология}
 	\includegraphics[width=\linewidth]{true-devops.jpg}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Что такое Terraform}
+				\begin{itemize}
+					\item{Создание ресурсов провайдера}
+					\item{Сохранение созданных ресурсов в state-файле}
+					\item{Обновление и удаление ресурсов}
+					\item{Различные провайдеры (AWS, Vault, Kubernetes, Consul)}
+					\item{Богатый набор свободных модулей}
+				\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Что такое Terraform - пример}
+	\begin{verbatim}
+resource "kubernetes_namespace" "example" {
+  metadata {
+    annotations {
+      name = "example-annotation"
+    }
+
+    labels {
+      mylabel = "label-value"
+    }
+
+    name = "terraform-example-namespace"
+  }
+}
+	\end{verbatim}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Наивный проект}
+	\begin{verbatim}
+$ ls -la
+-rw-r--r-- Oct  3 17:18 asg.tf
+-rw-r--r-- Oct  3 17:18 database-cassandra.tf
+-rw-r--r-- Oct  3 17:18 database-rds.tf
+-rw-r--r-- Oct  3 17:18 elb.tf
+-rw-r--r-- Oct  3 17:18 iam.tf
+-rw-r--r-- Oct  3 17:18 keys.tf
+-rw-r--r-- Oct  3 17:18 main.tf
+-rw-r--r-- Oct  3 17:18 Makefile
+-rw-r--r-- Oct  3 17:18 network.tf
+-rw-r--r-- Oct  3 17:18 policy.json
+-rw-r--r-- Oct  3 17:18 README.md
+-rw-r--r-- Oct  3 17:18 route53.tf
+-rw-r--r-- Oct  3 17:18 s3.tf
+	\end{verbatim}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Наивный проект}
+	\begin{columns}[T]
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Преимущества
+				\begin{itemize}
+					\item{Ресурсо-ориентированность}
+					\item{Все перед глазами}
+					\item{Простота управления ресурсами}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Недостатки
+				\begin{itemize}
+					\item{Плохая масштабируемость}
+					\item{Дублирование кода}
+					\item{Низкая абстракция}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Менее наивный проект}
+	\begin{verbatim}
+|-- common
+|-- implementation
+|   |-- .......
+|-- dev
+|   |-- blue
+|   |-- green
+|   |-- switch
+|   |-- vpc
+|-- prod
+    |-- blue
+    |-- green
+    |-- switch
+    |-- vpc
+	\end{verbatim}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Менее наивный проект}
+	\begin{columns}[T]
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Преимущества
+				\begin{itemize}
+					\item{Отсутствие дублирования кода}
+					\item{Масштабируемость}
+					\item{Небольшой риск потери состояния}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Недостатки
+				\begin{itemize}
+					\item{Неудобство в управлении}
+					\item{Сложность передачи переменных}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Навороченный проект}
+	\begin{verbatim}
+|-- bastion
+|-- consul
+|   |-- getter
+|-- keys
+|   |-- getter
+|-- network
+|   |-- getter
+|-- peering
+|-- transport
+|-- vault
+|-- zone
+    |-- getter
+	\end{verbatim}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Навороченный проект}
+	\begin{columns}[T]
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Преимущества
+				\begin{itemize}
+					\item{Все среды уместились на слайде}
+					\item{Максимальная изоляция}
+					\item{Блочно-модульная структура}
+					\item{Абсолютная унификация сред}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.5\linewidth}
+			\begin{minipage}[c][\textheight][c]{\linewidth}
+          			Недостатки
+				\begin{itemize}
+					\item{Сложное переключение контекста}
+					\item{Сложное управление ресурсами}
+					\item{getter-ы часто приходят в негодность}
+				\end{itemize}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Изоляция на уровне интерфейса}
+	Порядок действий при добавлении нового слоя
+	\begin{itemize}
+		\item{Во внешнем репозитории создается модуль с UT и самодостаточной логикой}
+		\item{В созданном модуле максимально используются community модули терраформа}
+		\item{Создается новый слой в репозитории tf продукта}
+		\item{Ничего в слое нельзя создавать кроме самого внешнего модуля с аргументами из среды окружения}
+		\item{С помощью direnv переключаем среды с одной на другую и последовательно создаем новый слой}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{getter модуля}
+	Изоляция логики получения результатов работы модуля от самого метода
+	\begin{verbatim}
+module "consul-getter" {
+  source             = "../consul/getter"
+  region             = "${var.region}"
+  country            = "${var.country}"
+  stage              = "${var.stage}"
+  internal_zone_name = "${var.internal_zone_name}"
+}
+	\end{verbatim}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Выводы из моего личного опыта}
+	\begin{itemize}
+		\item{Ops-ы плохо структурируют код}
+		\item{Ops-ы не могут в абстракцию}
+		\item{Разработчики хорошо продумывают развитие системы}
+		\item{Инфраструктурные сервисы сами операторы не напишут}
+		\item{Ключ к успеху лежит во взаимодействии}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Вопросы, сэр?}
+	\includegraphics[width=\linewidth]{theend.jpg}
 \end{frame}
 
 \end{document}
