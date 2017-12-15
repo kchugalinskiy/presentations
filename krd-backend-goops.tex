@@ -136,6 +136,11 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Sample terraform repo}
+	\includegraphics[width=0.7\linewidth]{qrcode.png}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Что такое Terraform}
 				\begin{itemize}
 					\item{Создание ресурсов провайдера}
@@ -302,6 +307,18 @@ $ ls -la
 \end{frame}
 
 \begin{frame}
+	\frametitle{Структурное программирование}
+	\begin{itemize}
+		\item{Функция = модуль}
+		\item{Вызов функции = использование модуля}
+		\item{null\_resource = цикл}
+		\item{locals = переменные}
+		\item{map = структуры}
+		\item{Свобода = рабство}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Изоляция на уровне интерфейса}
 	Порядок действий при добавлении нового слоя
 	\begin{itemize}
@@ -315,7 +332,7 @@ $ ls -la
 
 \begin{frame}[fragile]
 	\frametitle{getter модуля}
-	Изоляция логики получения результатов работы модуля от самого метода
+	Изоляция логики получения результатов работы модуля от самого модуля
 	\begin{verbatim}
 module "consul-getter" {
   source             = "../consul/getter"
